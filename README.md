@@ -38,4 +38,5 @@ The handbook is intended to be populated from the original engineering standard 
 - 26-Best-Practices.md
 - 27-Reference-Implementations.md
 - 28-Engineering-Decisions.md
+- 29-NextJS-Project-Standards.md
 - CHANGELOG.md
