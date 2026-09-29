@@ -34,6 +34,7 @@ Read and follow the guidance from:
 "D:\wamp\www\AI_Build\Frontend-Engineering-Handbook\26-Best-Practices.md"
 "D:\wamp\www\AI_Build\Frontend-Engineering-Handbook\27-Reference-Implementations.md"
 "D:\wamp\www\AI_Build\Frontend-Engineering-Handbook\28-Engineering-Decisions.md"
+"D:\wamp\www\AI_Build\Frontend-Engineering-Handbook\29-NextJS-Project-Standards.md"
 "D:\wamp\www\AI_Build\Frontend-Engineering-Handbook\CHANGELOG.md"
 "D:\wamp\www\AI_Build\Frontend-Engineering-Handbook\README.md"
 
