@@ -35,6 +35,7 @@ Read and follow the guidance from:
 "D:\wamp\www\AI_Build\Frontend-Engineering-Handbook\27-Reference-Implementations.md"
 "D:\wamp\www\AI_Build\Frontend-Engineering-Handbook\28-Engineering-Decisions.md"
 "D:\wamp\www\AI_Build\Frontend-Engineering-Handbook\29-NextJS-Project-Standards.md"
+"D:\wamp\www\AI_Build\Frontend-Engineering-Handbook\30-Laravel-Project-Standards.md"
 "D:\wamp\www\AI_Build\Frontend-Engineering-Handbook\CHANGELOG.md"
 "D:\wamp\www\AI_Build\Frontend-Engineering-Handbook\README.md"
 
@@ -148,3 +149,13 @@ Maintain consistent vertical rhythm throughout the project.
 - Adjacent sections should use consistent spacing.
 - Avoid assigning unique spacing values to individual sections unless required by the design.
 - Section spacing should scale proportionally across responsive breakpoints.
+# QA TESTING
+
+When the user says "run QA test" (or "run QA", "QA test", "run the QA audit") in any project,
+read and execute the full workflow in:
+
+"D:\wamp\www\AI_Build\Frontend-Engineering-Handbook\FRONTEND-QA-TEST.md"
+
+Run it against the current project, from Phase 1 (discovery) through Phase 8 (final verification),
+and write the report to `FRONTEND-QA-REPORT.md` in the project root as that file specifies.
+Load this file only when QA is requested; it is not part of the always-read coding standards.

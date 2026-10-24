@@ -160,6 +160,7 @@ Verify:
 - [ ] Assets directory created.
 - [ ] SASS architecture created.
 - [ ] JavaScript structure created.
+- [ ] Smooth wheel scrolling added to `app.js` (Chapter 13 — *Smooth Wheel Scrolling*).
 - [ ] Documentation added (if required).
 
 ---

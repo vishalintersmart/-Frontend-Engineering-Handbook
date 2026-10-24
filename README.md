@@ -39,4 +39,6 @@ The handbook is intended to be populated from the original engineering standard 
 - 27-Reference-Implementations.md
 - 28-Engineering-Decisions.md
 - 29-NextJS-Project-Standards.md
+- 30-Laravel-Project-Standards.md
 - CHANGELOG.md
+- FRONTEND-QA-TEST.md — on-demand full QA audit workflow (run when asked to "run QA test")

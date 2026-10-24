@@ -63,6 +63,106 @@ Before writing a single line of a new page, read the project's own `CLAUDE.md`/`
 
 ---
 
+# Mandatory Next.js Setup Rules (MUST — every Next.js project)
+
+These eleven rules apply to every Next.js project without exception. Where an older example elsewhere in this chapter conflicts with one of them, the rule below wins.
+
+## 1. Common heading component — `heading.jsx`
+
+Create one shared `components/common/heading.jsx`. Every section/page heading renders through it; never hand-style an `<h1>`–`<h6>` per section.
+
+- Props: `as` (tag, default `h2`), `className`, `children` (or `text`).
+- Font size, line-height and spacing are defined **per screen size** for `3xl`, `2xl`, `xl`, `lg`, `sm` **and the base (below-`sm`) size**, using Tailwind scale values (see Rule 6).
+- Keep semantic order (`h1` once per page) — the visual size comes from the component, the tag from the outline.
+
+```jsx
+export default function Heading({ as: Tag = "h2", className = "", children }) {
+  return (
+    <Tag className={`text-2xl sm:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl 3xl:text-7xl ${className}`}>
+      {children}
+    </Tag>
+  );
+}
+```
+
+## 2. Common button component — `button.jsx`
+
+Create one shared `components/common/button.jsx` (link or `<button>`, chosen by `href`). Every CTA uses it.
+
+- Sizes (padding, font size, height) are defined for `3xl`, `2xl`, `xl`, `lg`, `sm` and the base (below-`sm`) size.
+- Ships with a **premium hover** (e.g. smooth colour/fill sweep, subtle lift or arrow slide with `transition` + easing) — not a plain colour swap. Include `focus-visible` styles and respect `prefers-reduced-motion`.
+- Variants through `cva()`/props, not copy-pasted class strings.
+
+## 3. Local data lives inside the page
+
+No separate `data/` folder. Each page declares **one** `const local_data = { ... }` at the top of its own `page.js`.
+
+- **One key per section**; everything for that section sits inside that single object.
+- Repeated items (cards, slides, list rows, FAQs) go in an **array inside the section object**, each item with a stable `id`.
+- Do not declare standalone `const`s (arrays, strings, objects) outside `local_data` — every value is reachable through it.
+
+```jsx
+const local_data = {
+  hero: { title: "...", text: "...", cta: { label: "...", href: "/contact" } },
+  services: {
+    title: "...",
+    items: [
+      { id: 1, title: "...", text: "...", icon: "/images/icon-seo.svg" },
+      { id: 2, title: "...", text: "...", icon: "/images/icon-web.svg" },
+    ],
+  },
+};
+```
+
+Exception: records shared by two routes (e.g. a listing and its detail page) live in one module imported by both — never copied (see The Page Pattern).
+
+## 4. Small icons — wrapper div, not a width on the image
+
+Never put a fixed `width` directly on a small icon `<Image>`. Wrap it in a sized div and let the image fill it:
+
+```jsx
+<div className="relative aspect-square w-8 sm:w-10 xl:w-12 3xl:w-14 h-auto">
+  <Image src={icon} alt="" fill className="object-contain" />
+</div>
+```
+
+- The wrapper owns `width` (responsive per screen size, Tailwind scale), `h-auto` and the `aspect-*` ratio.
+- The image uses `fill` (or `w-full h-full`) + `object-contain`. This also avoids Next's aspect-ratio warning.
+
+## 5. Lowercase file names
+
+Component files and folders use **lowercase** (kebab-case when multi-word): `heading.jsx`, `inner-hero.jsx`, `product-slider.jsx`. No `Heading.jsx`/`InnerHero.jsx`. The exported component *function* name stays PascalCase (React requires it).
+
+## 6. Tailwind scale values, not px
+
+Font sizes, padding, margins, gaps and widths use Tailwind's scale (`text-2xl`, `py-10`, `mt-6`, `gap-4`) — **not** arbitrary px values (`text-[22px]`, `py-[43px]`). Make every one responsive, stepping across `sm` / `lg` / `xl` / `2xl` / `3xl` (e.g. `py-10 lg:py-16 2xl:py-24`). Use an arbitrary value only when the design has no scale equivalent, and say why.
+
+## 7. Font variables are named after the font
+
+Name the CSS variable after the actual font, not its role: `--font-poppins`, `--font-playfair-display` — never `--font-primary`, `--font-heading`, `--font-body`. The next developer should know the font from the variable.
+
+```jsx
+const poppins = Poppins({ subsets: ["latin"], variable: "--font-poppins" });
+```
+
+## 8. Global colour variables
+
+Common colours live in `globals.css` as `--basecolor`, `--basecolor2`, `--basecolor3`. If the project has more shared colours, continue the sequence: `--basecolor4`, `--basecolor5`, … Map them in `@theme inline` so Tailwind utilities (`bg-basecolor`, `text-basecolor2`) work. Do not invent role names (`--primary`, `--brand-blue`) for common colours.
+
+## 9. `.typography` class for CMS / editor content
+
+`globals.css` MUST define a `.typography` class (in `@layer components`) that styles every HTML tag a text editor can emit — `h1`–`h6`, `p`, `a`, `ul`/`ol`/`li`, `blockquote`, `img`, `figure`/`figcaption`, `table`/`th`/`td`, `hr`, `strong`/`em`, `code`/`pre`. Wrap rich-text output in it on detail pages (news/blog detail, policies, etc.) because that markup comes from an editor and cannot carry utility classes.
+
+## 10. One flat images folder
+
+All images live in a single `public/images/` folder. No per-page sub-folders (`images/home/`, `images/about/`). Use clear, lowercase, descriptive file names so pages don't collide.
+
+## 11. Optional chaining everywhere
+
+Access every prop, data field, array and nested value with optional chaining: `data?.title`, `data?.items?.map(...)`, `item?.cta?.href`. A missing or late field must never crash the page. Pair with `?? fallback` where a default is needed.
+
+---
+
 # Standard Project Structure
 
 ```text
@@ -76,13 +176,16 @@ src/
 │   │   ├── header.jsx
 │   │   ├── footer.jsx
 │   │   └── common/             # shared cross-page pieces (hero, cards, floating widgets)
+│   ├── common/                 # heading.jsx, button.jsx (Rules 1–2)
 │   ├── sections/
 │   │   └── <page-area>/        # one folder per page/feature area
-│   │       └── <Component>.jsx # one component per page section
+│   │       └── <component>.jsx # one lowercase-named component per page section
 │   └── ui/                     # shadcn-style primitives (button, dialog, accordion, select, ...)
 ├── lib/
 │   └── utils.js                 # cn() and friends
-└── app/globals.css              # @theme inline — breakpoints, colors, fonts, keyframes
+└── app/globals.css              # @theme inline — breakpoints, colors, fonts, keyframes, .typography
+public/
+└── images/                      # ALL images, flat — no per-page sub-folders (Rule 10)
 ```
 
 Rules:
@@ -99,7 +202,7 @@ Rules:
 Every route file follows the same shape:
 
 ```jsx
-import InnerHero from "@/components/layout/common/InnerHero";
+import InnerHero from "@/components/layout/common/inner-hero";
 import SectionA from "@/components/sections/<area>/section-a";
 import SectionB from "@/components/sections/<area>/section-b";
 
@@ -138,9 +241,60 @@ export default function page() {
 # Component Conventions
 
 - Functional components, default export, props destructured as `{ data }` (or a more specific name for sub-components, e.g. `{ item }`, `{ job }`).
-- `"use client"` only on components that actually need state, effects, or browser APIs (interactive sections, anything with `useState`/`useEffect`/`usePathname`/`useSearchParams`). Everything else stays a server component by default.
+- `"use client"` only on the small leaf components that actually need state, effects, or browser APIs (anything with `useState`/`useEffect`/`usePathname`/`useSearchParams`) — **never on a section component**. See *Client Boundaries & shadcn Primitives* below.
 - `next/image` for all images: fixed `width`/`height` **or** `fill` inside a `position:relative` parent with a defined size; `priority` only on the hero/LCP image. Never mix `w-full h-auto` styling with fixed `width`/`height` props on the same `<Image>` — that combination trips Next's aspect-ratio warning. Either let both dimensions be fixed, or wrap the image in an `aspect-[w/h]` container and use `w-full h-full object-cover`.
 - Reusable UI primitives (`components/ui/*`) use `cva()` for variants and `cn()` to merge classes — follow this exact pattern for any new primitive rather than hand-rolling conditional class strings.
+
+---
+
+# Client Boundaries & shadcn Primitives (MUST — every Next.js project)
+
+These two rules are non-negotiable on every Next.js project. They exist so pages render fast (server HTML, minimal client JS) and so interactive widgets behave consistently and accessibly.
+
+## Rule 1 — Use shadcn/ui for interactive primitives
+
+Select fields, modals/dialogs, drawers/off-canvas menus (Sheet), accordions, tabs, popovers, tooltips, dropdown menus and similar primitives MUST use the project's shadcn/ui components in `components/ui/`. Do not hand-roll a native `<dialog>`, a styled native `<select>`, or a custom `aria-expanded` disclosure when a shadcn primitive exists.
+
+- Missing a primitive? Add it with `npx shadcn@latest add <name>` — don't write it from scratch, and don't introduce a second headless library.
+- **Setting up shadcn in an existing project:** write `components.json` by hand and run `add`; do **not** run `shadcn init` against a project that already has its own `globals.css` tokens (it rewrites them). After `add`, check the generated imports — the CLI has been seen to import `cn` from a bogus npm package named `cn` when `@/lib/utils` didn't exist yet. The correct deps are `radix-ui` (or `@base-ui/react`), `clsx`, `tailwind-merge`, `lucide-react` and `tw-animate-css`, plus `lib/utils.js` exporting `cn = (...i) => twMerge(clsx(i))`.
+- **Map the shadcn tokens** (`--color-background`, `--color-popover`, `--color-popover-foreground`, `--color-accent`, `--color-accent-foreground`, `--color-muted-foreground`, `--color-border`, `--color-input`, `--color-ring`, …) to the project palette inside `@theme inline`, and `@import "tw-animate-css";` in `globals.css`. Without these, `bg-popover`/`bg-background` resolve to nothing and menus, selects and drawers render with a **transparent background**.
+- **Belt and braces:** on each usage that the design styles, also set the surface explicitly (`bg-white text-ink` on `SheetContent`/`SelectContent`, `focus:bg-<token>` on `SelectItem`) so the design never depends on token wiring alone.
+- Style through the `className` prop on your usage. Edit the generated `components/ui/*` file only for a project-wide change.
+- RTL projects: `side="left"` on a Sheet is physical. Add `rtl:right-0 rtl:left-auto rtl:data-[state=open]:slide-in-from-right rtl:data-[state=closed]:slide-out-to-right` so it opens from the inline start.
+- Keep the design's own visible label (use `<label htmlFor>` + `SelectTrigger id`) and give every Sheet/Dialog a `SheetTitle`/`DialogTitle` (use `sr-only` if the design has no visible title).
+
+## Rule 2 — Never put `"use client"` on a section component
+
+A section component (`components/sections/**`) MUST stay a server component. Only the interactive piece inside it becomes a separate client component.
+
+```jsx
+// components/sections/home/curated-products.jsx — server component (no directive)
+import ProductSlider from "@/components/common/product-slider";
+import SectionHeading from "@/components/common/section-heading";
+
+export default function CuratedProducts({ data }) {
+  return (
+    <section className="py-(--section-space)">
+      <div className="container">
+        <SectionHeading eyebrow={data.eyebrow} title={data.title} />
+        <ProductSlider products={data.products} />   {/* only this ships JS */}
+      </div>
+    </section>
+  );
+}
+```
+
+```jsx
+// components/common/product-slider.jsx
+"use client";
+// Embla / scroll state lives here, nowhere else.
+```
+
+- Slider/carousel → extract the **slider** (e.g. the Embla card slider), not the whole section.
+- Read-more toggle, tabs, filters, expanding gallery, form → extract just that widget.
+- Server-rendered content that must sit *inside* the client widget (e.g. a hero `<h1>` over a slideshow) is passed as `children` — it stays server HTML.
+- If a whole "section" is genuinely all state (a filterable product grid), move it out of `sections/` into the shared components folder as a client component and render it from the server section/page — don't mark the section file itself.
+- Check before finishing: `grep -rl '"use client"' src/components/sections` must return nothing.
 
 ---
 
@@ -202,6 +356,8 @@ A page is not complete until it has been checked live, not just read as JSX.
 | A shared `Accordion`/`Select` trigger shows a leftover default chevron next to your custom `+`/`-` indicator | The shared primitive renders its own icon unconditionally; a plain Tailwind override loses the specificity race | `[&>svg]:!hidden` scoped to your trigger usage (matches existing precedent for the same problem elsewhere in the project) |
 | A modal/dialog close icon (or similar `ghost`/`outline` button) is invisible | Shared `Button` variant defaults to white text for a different (dark) context | Add an explicit text color className on that specific usage; never edit the shared variant |
 | A computed/derived form value never appears to update during automated testing | Native `.value =` + dispatched `input` event bypasses React's change tracking | Use the browser tool's real `type`/`fill` action; re-verify before treating it as a bug |
+| A shadcn Sheet/Select/menu renders with a transparent background | shadcn colour tokens (`--color-popover`, `--color-background`, …) not mapped in `@theme inline`, or `tw-animate-css` not imported | Map the tokens to the palette, import `tw-animate-css`, and set `bg-white`/equivalent explicitly on the usage |
+| A CSS change (new tokens, new `@import`) builds fine but doesn't show in `next dev` | The running dev server stopped watching / is serving a cached CSS chunk (same chunk hash before and after the edit) | Restart `next dev`; confirm with `next build` + `next start` on a spare port before blaming the code |
 | Two adjacent multi-step-form tabs show identical field sets | A Figma step frame was duplicated from the previous step and never updated | Pair each tab's fields by what makes sense for its label, not by which frame the content happened to be copied into; tell the user what you corrected |
 
 ---
@@ -225,6 +381,9 @@ Every Next.js page/feature built under this standard MUST:
 - Flag — not silently fix or silently reproduce — any Figma content that looks like a production mistake (duplicated frames, mismatched tab/content pairing, stray layers).
 - Verify visually in a real browser at 1920px, ~1440px, and ~390px before calling the work done.
 - Leave pre-existing, unrelated issues (lint warnings, hydration errors, stray files) untouched and merely noted.
+- Use shadcn/ui components for selects, modals/dialogs, drawers, accordions and similar primitives (Rule 1 above).
+- Never put `"use client"` on a section component — extract only the interactive leaf (slider, toggle, filter) into its own client component (Rule 2 above).
+- Follow the eleven *Mandatory Next.js Setup Rules*: shared `heading.jsx`/`button.jsx`, page-local `local_data`, wrapper-sized icons, lowercase file names, Tailwind scale values, font-named variables, `--basecolor*` colours, `.typography`, flat `public/images/`, optional chaining.
 
 ---
 
@@ -236,6 +395,20 @@ Before marking a Next.js page/feature complete, verify:
 - [ ] Route file only composes `local_data` + section components (no inline business logic).
 - [ ] Shared data extracted to one module if used by more than one route.
 - [ ] New shared UI built on the project's existing headless-primitive library, not a new one.
+- [ ] **MUST:** Selects, modals/dialogs, drawers, accordions (and similar) use shadcn/ui from `components/ui/` — no hand-rolled `<dialog>`/native `<select>`/custom disclosures.
+- [ ] **MUST:** shadcn tokens mapped in `@theme inline`, `tw-animate-css` imported, and surfaces (`SheetContent`, `SelectContent`) visibly have a background in the browser.
+- [ ] **MUST:** No `"use client"` in any section component — `grep -rl '"use client"' src/components/sections` returns nothing; only leaf widgets (sliders, toggles, filters) are client components.
+
+## Setup Rules (MUST)
+- [ ] `heading.jsx` and `button.jsx` exist and are used everywhere; both sized for `3xl`/`2xl`/`xl`/`lg`/`sm`/base; button has a premium hover.
+- [ ] Each page has a single `local_data` with one object per section, repeated items in arrays inside it; no `data/` folder, no stray top-level consts.
+- [ ] Small icons sit in a wrapper div (responsive width, `h-auto`, `aspect-*`) — no width on the `<Image>` itself.
+- [ ] All component file names lowercase.
+- [ ] Padding/margin/font sizes use Tailwind scale values and are responsive; no px arbitrary values without reason.
+- [ ] Font CSS variables named after the font (`--font-poppins`); colours are `--basecolor`, `--basecolor2`, `--basecolor3`…
+- [ ] `.typography` defined in `globals.css` and applied to editor/CMS content on detail pages.
+- [ ] All images in one flat `public/images/` folder.
+- [ ] Optional chaining used on every prop/data access.
 
 ## Styling
 - [ ] Breakpoints/colors/fonts read from the project's actual `@theme inline`, not assumed.
@@ -266,6 +439,8 @@ Avoid:
 - Editing a shared component's default variant to fix a one-off visibility issue.
 - Fixing unrelated pre-existing lint/console errors while doing a scoped task.
 - Leaving a component duplicated across two page areas instead of promoting it to a shared location.
+- Marking a whole section `"use client"` because one slider or toggle inside it needs state.
+- Hand-rolling a modal, select or accordion when shadcn/ui provides it — or adding shadcn without mapping its colour tokens (transparent menus/selects).
 
 ---
 
