@@ -121,7 +121,8 @@ Reference CSS:
 
 Rules:
 
-- Use the standard `.container` class throughout the project.
+- **Exception — Next.js projects:** do NOT use the custom container/breakpoint table above. Use Tailwind's default `container` utility (`container mx-auto px-4`) with Tailwind's default breakpoints, and do not define a custom `.container` class.
+- Use the standard `.container` class throughout the project (non-Next.js projects).
 - Do not create multiple container systems unless explicitly required.
 - Keep horizontal padding consistent across all pages.
 - Build responsive layouts around these breakpoints.

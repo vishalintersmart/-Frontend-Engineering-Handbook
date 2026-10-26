@@ -231,7 +231,8 @@ export default function page() {
 
 # Styling System (Tailwind v4, no config file)
 
-- Breakpoints and the `.container` class are defined once, in `globals.css` under `@theme inline` / `@layer components`. **Read that file before assuming any breakpoint number.** Different Next.js/Tailwind-v4 projects define genuinely different breakpoint sets — do not import a breakpoint table from a previous project or from this handbook's generic PHP-era table (Chapter 09) without checking whether the current project already defines its own.
+- **Container (MUST):** use Tailwind's default `container` utility — `className="container mx-auto px-4"`. Do **not** define a custom `.container` class (no `@layer components { .container {…} }`, no `@utility container` override) and do not apply the generic container table from the global instructions / Chapter 09 to Next.js projects. Tailwind's default max-widths apply (`sm` 640, `md` 768, `lg` 1024, `xl` 1280, `2xl` 1536). `mx-auto` and the horizontal padding are explicit utilities because Tailwind v4's `container` does not center or pad by itself; keep the same padding on every page.
+- Breakpoints are defined once, in `globals.css` under `@theme inline`. **Read that file before assuming any breakpoint number.** Different Next.js/Tailwind-v4 projects define genuinely different breakpoint sets — do not import a breakpoint table from a previous project or from this handbook's generic PHP-era table (Chapter 09) without checking whether the current project already defines its own.
 - Reuse existing utility classes (title/heading classes, text classes, brand-gradient classes) before writing new arbitrary-value Tailwind. If two components need the same 55px-bold-heading treatment, that is a signal a shared class already exists — grep for it before inventing a duplicate.
 - Prefer normal Tailwind specificity or `cn()`-based class merging over the `!important` modifier. The one accepted exception: overriding a **shared UI primitive's own conditional classes** (e.g. a default chevron icon's `hidden`/`inline` toggle classes baked into a shared `Accordion`/`Select` component) where plain specificity does not reliably win. When you do reach for `!`, keep it scoped to that one override, matching whatever precedent already exists in the project for the same problem.
 - Dark mode: if the project uses a `.dark` class strategy (`next-themes`), give every new custom color an explicit `dark:` counterpart — do not ship a component that only looks right in light mode.
@@ -275,7 +276,7 @@ import SectionHeading from "@/components/common/section-heading";
 export default function CuratedProducts({ data }) {
   return (
     <section className="py-(--section-space)">
-      <div className="container">
+      <div className="container mx-auto px-4">
         <SectionHeading eyebrow={data.eyebrow} title={data.title} />
         <ProductSlider products={data.products} />   {/* only this ships JS */}
       </div>
