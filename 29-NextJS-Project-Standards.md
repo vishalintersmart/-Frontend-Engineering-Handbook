@@ -161,6 +161,32 @@ All images live in a single `public/images/` folder. No per-page sub-folders (`i
 
 Access every prop, data field, array and nested value with optional chaining: `data?.title`, `data?.items?.map(...)`, `item?.cta?.href`. A missing or late field must never crash the page. Pair with `?? fallback` where a default is needed.
 
+## 12. Stepped Figma scale for the large tiers (3xl / 2xl / xl / lg)
+
+Between lg and the widest desktop there are four tiers. **3xl is the Figma frame**: font sizes, spacing, widths and sizes are exactly the Figma values. Every smaller tier is the same design scaled down by a fixed ratio. Below `lg` (1024px) the mobile layout is built normally and is not scaled.
+
+Implement it once in `globals.css` with a single custom property `--u` (= one Figma px) and drive Tailwind's spacing from it. Do not hand-write per-tier values in components.
+
+```css
+@theme {
+  --spacing: 4px;
+  --breakpoint-3xl: 1920px;
+}
+@media (min-width: 1024px) { :root { --u: min(0.6px,  calc(100svh / 1080)); --spacing: calc(var(--u) * 4); } } /* lg  */
+@media (min-width: 1280px) { :root { --u: min(0.72px, calc(100svh / 1080)); } }                                   /* xl  */
+@media (min-width: 1536px) { :root { --u: min(0.85px, calc(100svh / 1080)); } }                                   /* 2xl */
+@media (min-width: 1920px) { :root { --u: 1px; } }                                                                /* 3xl = Figma exact */
+```
+
+- Design-scale type sizes are tokens in `@theme inline`, e.g. `--text-display: clamp(40px, calc(100 * var(--u)), 100px)` (100px = the Figma value). Utilities such as `text-display` then follow the tier.
+- Spacing, gaps, widths and heights keep using Tailwind scale classes (`py-16`, `gap-6`, `w-80`): because `--spacing` is `4 × --u`, they equal the Figma value at 3xl and scale per tier. Use `calc(N * var(--u))` for Figma values that have no spacing step.
+- `--u` is capped at `100svh / 1080` for lg/xl/2xl so 1080-design-px full-height sections still fit short laptop windows. 3xl is not capped (exact values win).
+- Above 1920px the design does **not** keep growing — it holds at the Figma size.
+- The tier ratios (0.6 / 0.72 / 0.85) are the defaults; use others only if the design requires, and record them in the project's docs.
+- The `container` is **not** scaled with the tier — keep Tailwind's default `container mx-auto px-4`. On xl/lg the content therefore sits closer to the screen edge than in Figma; this is expected.
+
+Verify at 1920×1080, ~1600×1000, ~1300×800 and ~1100×800: measure `--u` (1, 0.85, 0.72, 0.6), check every section for clipping and horizontal overflow (only carousels/marquees may exceed the viewport).
+
 ---
 
 # Standard Project Structure
@@ -384,7 +410,7 @@ Every Next.js page/feature built under this standard MUST:
 - Leave pre-existing, unrelated issues (lint warnings, hydration errors, stray files) untouched and merely noted.
 - Use shadcn/ui components for selects, modals/dialogs, drawers, accordions and similar primitives (Rule 1 above).
 - Never put `"use client"` on a section component — extract only the interactive leaf (slider, toggle, filter) into its own client component (Rule 2 above).
-- Follow the eleven *Mandatory Next.js Setup Rules*: shared `heading.jsx`/`button.jsx`, page-local `local_data`, wrapper-sized icons, lowercase file names, Tailwind scale values, font-named variables, `--basecolor*` colours, `.typography`, flat `public/images/`, optional chaining.
+- Follow the twelve *Mandatory Next.js Setup Rules*: shared `heading.jsx`/`button.jsx`, page-local `local_data`, wrapper-sized icons, lowercase file names, Tailwind scale values, font-named variables, `--basecolor*` colours, `.typography`, flat `public/images/`, optional chaining, stepped 3xl/2xl/xl/lg Figma scale (`--u`).
 
 ---
 
@@ -410,6 +436,7 @@ Before marking a Next.js page/feature complete, verify:
 - [ ] `.typography` defined in `globals.css` and applied to editor/CMS content on detail pages.
 - [ ] All images in one flat `public/images/` folder.
 - [ ] Optional chaining used on every prop/data access.
+- [ ] `--u` stepped scale defined (3xl = 1px exact Figma, 2xl/xl/lg fixed ratios, capped by `100svh/1080` below 3xl); container not scaled; verified at 1920 / ~1600 / ~1300 / ~1100.
 
 ## Styling
 - [ ] Breakpoints/colors/fonts read from the project's actual `@theme inline`, not assumed.

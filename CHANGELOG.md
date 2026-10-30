@@ -4,6 +4,10 @@
 
 This chapter will be fully populated from the original engineering standard while preserving all explicit rules, checklists, examples, and code samples.
 
+## 2026-10-29
+
+- **29-NextJS-Project-Standards.md** — added Mandatory Setup Rule 12, *Stepped Figma scale for the large tiers*: 3xl (≥1920) uses exact Figma values; 2xl / xl / lg use fixed ratios (0.85 / 0.72 / 0.6) via a single `--u` custom property driving `--spacing` and design-scale type tokens, capped by `100svh/1080` below 3xl; no growth above 1920; container left unscaled; below lg stays mobile. Mandatory Rules and Validation Checklist updated.
+
 ## 2026-10-24
 
 - **29-NextJS-Project-Standards.md** — added the mandatory *Mandatory Next.js Setup Rules* section (11 rules): shared `heading.jsx` and `button.jsx` (premium hover) sized for 3xl/2xl/xl/lg/sm/base; page-local `local_data` with one object per section and arrays inside it (no data folder); wrapper-div sizing for small icons; lowercase component file names; Tailwind scale values instead of px, responsive; font variables named after the font; `--basecolor`, `--basecolor2`, … global colours; `.typography` class for editor content; a single flat `public/images/` folder; optional chaining everywhere. Structure tree, examples, Mandatory Rules and Validation Checklist updated to match.
