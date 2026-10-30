@@ -4,6 +4,10 @@
 
 This chapter will be fully populated from the original engineering standard while preserving all explicit rules, checklists, examples, and code samples.
 
+## 2026-10-31
+
+- **09-Responsive-System.md** — added the mandatory *Figma Fidelity Floor (1280px)* rule: the implementation must be visually identical to Figma from the frame's own width down to 1280px, platform-agnostically (HTML, Laravel, Next.js, or any other stack), achieved via a single proportional design-scale CSS custom property (plain CSS, not a framework feature) rather than the discrete breakpoint table. Layout reorganization/reflow is reserved for below 1280px. Mandatory Rules, Responsive Layout Principles and the Validation Checklist updated; cross-referenced from **20-Figma-Validation.md**, **29-NextJS-Project-Standards.md** (Rule 12), and **30-Laravel-Project-Standards.md**.
+
 ## 2026-10-29
 
 - **29-NextJS-Project-Standards.md** — added Mandatory Setup Rule 12, *Stepped Figma scale for the large tiers*: 3xl (≥1920) uses exact Figma values; 2xl / xl / lg use fixed ratios (0.85 / 0.72 / 0.6) via a single `--u` custom property driving `--spacing` and design-scale type tokens, capped by `100svh/1080` below 3xl; no growth above 1920; container left unscaled; below lg stays mobile. Mandatory Rules and Validation Checklist updated.

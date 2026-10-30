@@ -196,7 +196,9 @@ Every implementation should verify the following.
 
 # Responsive Validation
 
-Repeat Figma Validation for every supported breakpoint.
+**Down to 1280px, the implementation must be visually identical to Figma — see Chapter 09's Figma Fidelity Floor.** Below 1280px, the layout may reorganize; above it, no deviation is acceptable.
+
+Repeat Figma Validation for every supported breakpoint, including 1280px itself.
 
 Validate:
 

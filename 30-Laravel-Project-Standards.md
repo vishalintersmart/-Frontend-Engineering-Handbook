@@ -349,10 +349,11 @@ Before marking a Laravel page/feature complete, verify:
 - [ ] Structured design data cross-checked against a rendered screenshot (true Y-order, not layer-list order).
 - [ ] All real assets downloaded into the project's asset convention (no hot-linking).
 - [ ] Any duplicated/mislabeled design content identified and corrected with judgment, not copied as-is.
+- [ ] Visually identical to Figma down to 1280px — the handbook-wide **Figma Fidelity Floor** (Chapter 09). The generic breakpoint table (1200/1440 tiers) does not by itself guarantee this; where the design needs continuous fidelity between tiers, add a plain-CSS design-scale custom property (the same `--u`-per-Figma-px technique described in Chapter 09/29) in the project's SASS, rather than letting the 1200→1440 gap drift from the design.
 
 ## Verification
 - [ ] Console checked for new errors/warnings (vs. pre-existing ones on other pages).
-- [ ] Screenshot comparison done at desktop, laptop, and mobile widths.
+- [ ] Screenshot comparison done at desktop, laptop, and mobile widths, **including 1280px specifically**.
 - [ ] Every shared component checked on **all** pages that use it, not only the page just built.
 - [ ] Interactive elements (sliders, selects, filter forms) actually exercised, not just visually inspected.
 

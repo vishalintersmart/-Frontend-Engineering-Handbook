@@ -59,6 +59,7 @@ Developers should never create arbitrary breakpoint values for individual compon
 
 Every project MUST:
 
+- Hold exact Figma visual fidelity down to 1280px (see Figma Fidelity Floor below); only reorganize/reduce below it.
 - Use the approved global breakpoints.
 - Use the approved container widths.
 - Follow the global typography scale.
@@ -150,6 +151,24 @@ Avoid creating multiple container systems within the same project.
 
 ---
 
+# Figma Fidelity Floor (1280px)
+
+From the Figma frame's native width down to **1280px**, the implementation must look visually identical to the approved design — not a reduced or re-flowed approximation. Only below 1280px may the layout reorganize, stack, or otherwise adapt for smaller screens.
+
+This applies to **every platform this handbook covers** — static HTML, Laravel/Blade + SASS, Next.js/Tailwind, WordPress, or anything else. It is a visual-fidelity mandate, not a framework feature.
+
+Achieve it with a single proportional design-scale variable — a CSS custom property representing one Figma pixel (commonly named `--u`) — not with the discrete breakpoint table below:
+
+- At the Figma frame's own width, the variable equals `1px`: every value is the exact Figma value.
+- Below that, down to 1280px, scale the variable by a fixed ratio per tier (or a continuous formula, e.g. capped by viewport height) so typography, spacing, and component sizing shrink together — never independently, and never by hand-picked per-breakpoint overrides.
+- Drive sizes through `calc(N * var(--u))` (or design tokens built on it), not literal per-tier pixel values in components.
+- This is plain CSS. It works the same way whether sizing is applied via Tailwind arbitrary values, a SASS partial, or a plain stylesheet — the technique is not tied to any one stack.
+- Below 1280px, switch to the standard breakpoint table below and let the layout genuinely reorganize (columns stack, navigation collapses, images reflow) rather than continuing to shrink proportionally.
+
+Validate this specifically: check the implementation at exactly **1280px** width, in addition to the standard breakpoint list, before calling any page or component done. A page that only "looks right" at the Figma frame width and at mobile, with nothing checked in between, has not met this standard.
+
+---
+
 # Standard Breakpoints & Containers
 
 Every project must use the following responsive container system unless the project explicitly defines a different one.
@@ -186,7 +205,7 @@ Reference CSS:
 
 # Responsive Layout Principles
 
-Layouts should adapt by reorganizing content—not by shrinking everything proportionally.
+**Below the 1280px fidelity floor** (see above), layouts should adapt by reorganizing content—not by shrinking everything proportionally. At and above 1280px, proportional scaling via the design-scale variable is how fidelity is preserved; reorganization belongs below it.
 
 Examples include:
 
@@ -303,7 +322,8 @@ Before completing a page verify:
 
 ## Layout
 
-- [ ] Layout adapts correctly.
+- [ ] Visually identical to Figma at every width from the frame's own width down to 1280px (checked at 1280px specifically, not assumed).
+- [ ] Layout adapts correctly below 1280px.
 - [ ] Grid remains consistent.
 - [ ] Containers align correctly.
 

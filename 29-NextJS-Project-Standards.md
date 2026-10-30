@@ -165,6 +165,8 @@ Access every prop, data field, array and nested value with optional chaining: `d
 
 Between lg and the widest desktop there are four tiers. **3xl is the Figma frame**: font sizes, spacing, widths and sizes are exactly the Figma values. Every smaller tier is the same design scaled down by a fixed ratio. Below `lg` (1024px) the mobile layout is built normally and is not scaled.
 
+This is the Next.js implementation of the handbook-wide **Figma Fidelity Floor** (Chapter 09): visual fidelity must hold down to 1280px, not just at the 1920 frame. In practice that means the 2xl and xl tiers are not optional polish — verify them with the same rigor as 3xl, and treat any visible drift at 1280px as a bug, not an acceptable tradeoff of the ratio system.
+
 Implement it once in `globals.css` with a single custom property `--u` (= one Figma px) and drive Tailwind's spacing from it. Do not hand-write per-tier values in components.
 
 ```css
