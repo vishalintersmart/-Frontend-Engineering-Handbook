@@ -160,3 +160,11 @@ read and execute the full workflow in:
 Run it against the current project, from Phase 1 (discovery) through Phase 8 (final verification),
 and write the report to `FRONTEND-QA-REPORT.md` in the project root as that file specifies.
 Load this file only when QA is requested; it is not part of the always-read coding standards.
+
+
+# SMOOTH SCROLL, STICKY HEADER & LIGHTHOUSE (all Laravel / HTML / PHP projects)
+
+- **Smooth scroll:** copy "D:\wamp\www\AI_Build\Frontend-Engineering-Handbook\assets\smoothscroll.js" unchanged into the project (`assets/js/smoothscroll.js`), load it once with `defer` in the shared layout, minified in production. See Chapter 13.
+- **Sticky header animation:** every header pins on scroll with the `is-stuck` slide-in/shadow animation (transform/opacity/shadow only, reduced-motion safe). See Chapter 16.
+- **Lighthouse:** target 100 in Performance, Accessibility, Best Practices and SEO with no design compromise. Always keep `noindex, nofollow`; the "blocked from indexing" audit is the only accepted SEO failure. See Chapter 15.
+- Not applied to Next.js projects unless requested.

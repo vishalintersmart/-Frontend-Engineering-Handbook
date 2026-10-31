@@ -112,123 +112,40 @@ assets/js/app.js
 
 ---
 
-# Smooth Wheel Scrolling (Required)
+# Smooth Scrolling (Required)
 
 ## Purpose
 
-Every HTML / PHP build ships eased mouse-wheel scrolling as part of the shared behaviour in `assets/js/app.js`. It is a trimmed rewrite of SmoothScroll.js (≈80 lines instead of ≈440, no dependency): each wheel notch eases over 400ms with a "pulse" ease-out and acceleration on fast repeated notches.
+Every Laravel and HTML / PHP project ships the approved smooth-scroll script. The master copy lives in this handbook:
 
-It deliberately stays **native** for trackpads, touch devices, Firefox (no `wheelDeltaY`; already smooth), `ctrl` + wheel zoom and `prefers-reduced-motion: reduce`. Keyboard scrolling is **not** intercepted — browsers already scroll arrow / Page / Space keys smoothly, and hijacking them hurts keyboard users.
+```text
+assets/smoothscroll.js
+```
+
+It is a SmoothScroll.js build: mouse-wheel notches ease over 400ms with a "pulse" curve and acceleration on fast repeated notches. Trackpads / touch devices are left native by the script's own detection.
 
 ## Rules
 
-- Add `initSmoothScroll()` to `app.js` and call it from the boot `init()`.
-- Do not add a smooth-scroll library (Lenis, Locomotive, SmoothScroll.js) on top of it.
-- Keep `scroll-behavior: smooth` on `html` (for anchor links) — the script scrolls with `behavior: 'instant'` so the two never fight.
-- A page locked with `overflow: hidden` on `html` or `body` (mobile menu, lightbox) is never scrolled by it.
-- Nested scroll areas (`overflow-y: auto | scroll` with overflowing content) are eased on their own; the page stays put.
-- Not for Next.js / React projects (Chapter 29) unless the project asks for it.
+- Copy `assets/smoothscroll.js` unchanged into the project as `assets/js/smoothscroll.js` (Laravel: `public/assets/js/smoothscroll.js` or the project's compiled-JS location).
+- Load it once, in the shared footer / layout, before `app.js`, with `defer`:
 
-## Implementation
-
-Drop-in, self-contained (inside the `app.js` IIFE; reuse the file's existing `reduceMotion` / `root` constants if they already exist):
-
-```javascript
-/* ------------------------------------------------------------ Smooth wheel scrolling
-   Trimmed from SmoothScroll.js: each mouse-wheel notch eases over 400ms with acceleration.
-   Trackpads, touch, Firefox (no wheelDeltaY; already smooth), ctrl+zoom and reduced motion stay native. */
-function initSmoothScroll() {
-    const root = document.documentElement;
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reduceMotion || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
-
-    const DURATION = 400;
-    const STEP = 100;
-    const ACCEL_WINDOW = 50;
-    const ACCEL_MAX = 3;
-
-    // "pulse" ease-out, normalised so pulse(1) === 1
-    const rawPulse = (x) => {
-        x *= 4;
-        return x < 1 ? x - (1 - Math.exp(-x)) : Math.exp(-1) + (1 - Math.exp(1 - x)) * (1 - Math.exp(-1));
-    };
-    const pulseOne = rawPulse(1);
-    const pulse = (x) => rawPulse(x) / pulseOne;
-
-    let queue = [];
-    let target = null;
-    let running = false;
-    let direction = 0;
-    let lastWheel = 0;
-
-    const isLocked = (el) => getComputedStyle(el).overflowY === 'hidden';
-
-    // nearest element that can scroll vertically; null when the page is locked (menu, lightbox)
-    const scrollTarget = (el) => {
-        for (; el && el !== document.body && el !== root; el = el.parentElement) {
-            const overflow = getComputedStyle(el).overflowY;
-            if ((overflow === 'auto' || overflow === 'scroll') && el.scrollHeight > el.clientHeight + 10) return el;
-        }
-        return isLocked(root) || isLocked(document.body) ? null : document.scrollingElement;
-    };
-
-    const step = () => {
-        const now = performance.now();
-        let delta = 0;
-        queue = queue.filter((item) => {
-            const progress = Math.min((now - item.start) / DURATION, 1);
-            const move = Math.round(item.y * pulse(progress)) - item.applied;
-            item.applied += move;
-            delta += move;
-            return progress < 1;
-        });
-
-        // 'instant' bypasses the CSS scroll-behavior: smooth on <html>
-        if (target === document.scrollingElement) window.scrollBy({ top: delta, behavior: 'instant' });
-        else target.scrollTop += delta;
-
-        if (queue.length) requestAnimationFrame(step);
-        else running = false;
-    };
-
-    window.addEventListener('wheel', (event) => {
-        // notch detection via wheelDeltaY % 120 — a trackpad flick that lands on a multiple of 120 gets eased too
-        const notch = event.wheelDeltaY && event.wheelDeltaY % 120 === 0;
-        if (event.defaultPrevented || event.ctrlKey || !notch || Math.abs(event.deltaX) > Math.abs(event.deltaY)) return;
-
-        const el = scrollTarget(event.target);
-        if (!el) return;
-
-        const now = performance.now();
-        let y = -event.wheelDeltaY * STEP / 120;
-        if (Math.sign(y) !== direction || el !== target) {
-            direction = Math.sign(y);
-            target = el;
-            queue = [];
-        } else if (now - lastWheel < ACCEL_WINDOW) {
-            y *= Math.min((1 + ACCEL_WINDOW / (now - lastWheel || 1)) / 2, ACCEL_MAX);
-        }
-        lastWheel = now;
-
-        queue.push({ y, applied: 0, start: now });
-        event.preventDefault();
-        if (!running) {
-            running = true;
-            requestAnimationFrame(step);
-        }
-    }, { passive: false });
-}
+```html
+<script src="assets/js/smoothscroll.js" defer></script>
 ```
+
+- Production builds serve a **minified** copy (Lighthouse "Minify JavaScript" / "Reduce unused JavaScript" must stay green).
+- Do not add a second smooth-scroll library (Lenis, Locomotive) or a custom wheel handler.
+- Options go in `window.SmoothScrollOptions` *before* the script loads; never edit the master file per project.
+- Keep `prefers-reduced-motion` users unaffected: if the project is audited for it, set `window.SmoothScrollOptions = { animationTime: 0 }` inside a `prefers-reduced-motion: reduce` check.
+- The script's keyboard handling hijacks arrow / Page / Space keys; if Lighthouse or manual QA flags keyboard-scroll issues, set `window.SmoothScrollOptions = { keyboardSupport: false }`.
+- Not for Next.js / React projects (Chapter 29) unless the project asks for it.
 
 ## Verification
 
-Test with **real** wheel input (Playwright `page.mouse.wheel(0, 100)`; a synthetic `new WheelEvent()` has no `wheelDeltaY` and is ignored):
-
-- One notch moves the page ~100px, eased over ~400ms (sample `scrollY` each frame).
+- One wheel notch moves the page ~100px, eased over ~400ms.
 - A scrollable inner box scrolls while the page does not move.
 - With the mobile menu / lightbox open the page does not move.
-- Reduced motion, touch emulation and Firefox scroll natively.
-- No console errors.
+- No console errors; Lighthouse Performance and Best Practices stay at 100.
 
 ---
 
@@ -369,7 +286,7 @@ Before approving JavaScript verify:
 - [ ] Event listeners initialized correctly.
 - [ ] Shared components behave consistently.
 - [ ] Page wrapper scoping used where appropriate.
-- [ ] Smooth wheel scrolling (`initSmoothScroll()`) included and verified (HTML / PHP builds).
+- [ ] `assets/smoothscroll.js` copied in, loaded once with `defer`, minified for production and verified (Laravel & HTML / PHP builds).
 
 ---
 

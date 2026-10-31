@@ -160,7 +160,9 @@ Verify:
 - [ ] Assets directory created.
 - [ ] SASS architecture created.
 - [ ] JavaScript structure created.
-- [ ] Smooth wheel scrolling added to `app.js` (Chapter 13 — *Smooth Wheel Scrolling*).
+- [ ] `assets/smoothscroll.js` added and loaded once with `defer` (Chapter 13 — *Smooth Scrolling*).
+- [ ] Sticky header animation implemented (Chapter 16 — *Sticky Header Animation*).
+- [ ] Lighthouse 100 / 100 / 100 / 100 achieved with `noindex, nofollow` kept (Chapter 15 — *Lighthouse 100 Target*).
 - [ ] Documentation added (if required).
 
 ---

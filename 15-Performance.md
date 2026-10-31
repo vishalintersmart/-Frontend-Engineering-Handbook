@@ -66,7 +66,7 @@ Every project MUST:
 - Optimize LCP.
 - Optimize CLS.
 - Optimize INP.
-- Target Lighthouse Performance scores of **90 or above**.
+- Target Lighthouse **100** in Performance, Accessibility and Best Practices, and **100** in SEO on every audit except the intentional `noindex` (see *Lighthouse 100 Target*).
 
 These rules are mandatory.
 
@@ -301,7 +301,41 @@ Before approving a page verify:
 
 ## Lighthouse
 
-- [ ] Target performance score of 90+ achieved where practical.
+- [ ] Performance, Accessibility and Best Practices at 100 (mobile and desktop).
+- [ ] SEO at 100 on all audits except the intentional `noindex` one.
+
+---
+
+# Lighthouse 100 Target (Required)
+
+Every project targets **100** in all four Lighthouse categories, mobile and desktop, with no compromise on the design.
+
+| Category       | Target |
+| -------------- | -----: |
+| Performance    |    100 |
+| Accessibility  |    100 |
+| Best Practices |    100 |
+| SEO            |    100 |
+
+## Keep noindex, nofollow
+
+Every project stays `noindex, nofollow` (meta robots and, where available, `X-Robots-Tag`). Do **not** remove it to chase a score.
+
+Lighthouse's "Page is blocked from indexing" audit fails whenever `noindex` is present, which caps the reported SEO category below 100 (about 66-69). That single audit is the only accepted failure. To prove the target:
+
+1. Run Lighthouse on the real build. Performance, Accessibility and Best Practices must be 100.
+2. In SEO, every audit except "Page is blocked from indexing" must pass.
+3. Optionally confirm a full SEO 100 on a throw-away local copy with the robots meta removed. Never ship that copy.
+
+## How to get there
+
+- Meta: unique `<title>`, `meta description`, `viewport`, `lang`, valid `canonical` and `robots`.
+- Images: modern formats (WebP / AVIF), correct `width`/`height`, responsive `srcset`, `loading="lazy"` below the fold, `fetchpriority="high"` on the LCP image.
+- Fonts: self-hosted, `font-display: swap`, preload only the critical weight.
+- CSS / JS: minified, `defer` for scripts, no render-blocking resources, no unused libraries.
+- Accessibility: contrast >= 4.5:1, visible focus, labelled controls, accessible names on links / buttons, ordered headings.
+- Best Practices: HTTPS, no console errors, no deprecated APIs, correct image aspect ratios.
+- Re-run Lighthouse after adding smooth-scroll and the sticky header; neither may cost a point.
 
 ---
 
@@ -340,7 +374,7 @@ A page complies with this performance standard when:
 - Images define intrinsic dimensions.
 - DOM structure remains efficient.
 - LCP, CLS, and INP have been reviewed.
-- The implementation targets a Lighthouse Performance score of **90 or above**.
+- The implementation reaches Lighthouse **100** in Performance, Accessibility and Best Practices, and SEO 100 apart from the intentional `noindex`.
 
 ---
 

@@ -276,10 +276,10 @@ Use the following as the project's QA targets:
 | Metric                          |                                          Target |
 | ------------------------------- | ----------------------------------------------: |
 | Page load time                  | Under 2 seconds, where realistically achievable |
-| Lighthouse Performance          |                                    85 or higher |
-| Lighthouse Accessibility        |                                    90 or higher |
-| Lighthouse Best Practices       |                                    90 or higher |
-| Lighthouse SEO                  |                  90 or higher, where applicable |
+| Lighthouse Performance          |                                             100 |
+| Lighthouse Accessibility        |                                             100 |
+| Lighthouse Best Practices       |                                             100 |
+| Lighthouse SEO                  |      100 except the intentional `noindex` audit |
 | Largest Contentful Paint (LCP)  |                             2.5 seconds or less |
 | Interaction to Next Paint (INP) |                                  200 ms or less |
 | Cumulative Layout Shift (CLS)   |                                     0.1 or less |

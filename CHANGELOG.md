@@ -7,6 +7,9 @@ This chapter will be fully populated from the original engineering standard whil
 ## 2026-10-31
 
 - **09-Responsive-System.md** — added the mandatory *Figma Fidelity Floor (1280px)* rule: the implementation must be visually identical to Figma from the frame's own width down to 1280px, platform-agnostically (HTML, Laravel, Next.js, or any other stack), achieved via a single proportional design-scale CSS custom property (plain CSS, not a framework feature) rather than the discrete breakpoint table. Layout reorganization/reflow is reserved for below 1280px. Mandatory Rules, Responsive Layout Principles and the Validation Checklist updated; cross-referenced from **20-Figma-Validation.md**, **29-NextJS-Project-Standards.md** (Rule 12), and **30-Laravel-Project-Standards.md**.
+- **13-JavaScript-Standards.md** - *Smooth Wheel Scrolling* replaced by *Smooth Scrolling (Required)*: every Laravel and HTML / PHP project now loads the master `assets/smoothscroll.js` (added to the handbook) unchanged, with `defer`, minified in production. The custom `initSmoothScroll()` is removed.
+- **16-Header-Standards.md** - added the required *Sticky Header Animation* section (`is-stuck` class via IntersectionObserver, transform/opacity/shadow only, reduced-motion safe).
+- **15-Performance.md**, **FRONTEND-QA-TEST.md** - Lighthouse targets raised to 100 in all four categories; `noindex, nofollow` is kept, with the unavoidable "blocked from indexing" SEO audit as the one accepted failure. **23-New-Project-Checklist.md** updated.
 
 ## 2026-10-29
 
