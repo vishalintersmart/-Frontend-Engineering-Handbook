@@ -791,6 +791,17 @@ When practical:
 
 ---
 
+## I-2. Visual Layout Verification (mandatory)
+
+Passing automated checks is not enough; every section must be **looked at** (screenshots) at every width.
+
+- Sweep widths 320 to 1920 in 40px steps plus the breakpoint edges (575/576, 767/768, 991/992, 1199/1200, 1439/1440, 1599/1600, 1919/1920) and common devices (375, 390, 430, 938, 1024, 1366, 1560); repeat for every language.
+- Always run the **automated overlap detector** at every ~40px width from 320 to 1920: compare text, images and buttons against each other (boxes clipped to overflow ancestors, ignoring intentional decorative layers). Zero unexplained overlaps allowed (Chapter 31, rule 1).
+- Check gaps: no orphaned grid items, no empty columns beside stretched media, no sections touching without spacing, consistent section rhythm, a minimum gap between text and the button below it.
+- Check design fidelity against Figma at each breakpoint: dividers, alignment, wrapping, button rows (no unintended stacking), image crops.
+- Force `content-visibility` visible and load lazy images before taking full-page screenshots; review them in slices.
+- Every defect found goes in the report with the width at which it occurs.
+
 ## J. Functional Testing of Frontend Interactions
 
 Although backend functionality is outside scope, test all interactions that can be verified on the frontend.

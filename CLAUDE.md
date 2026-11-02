@@ -36,6 +36,7 @@ Read and follow the guidance from:
 "D:\wamp\www\AI_Build\Frontend-Engineering-Handbook\28-Engineering-Decisions.md"
 "D:\wamp\www\AI_Build\Frontend-Engineering-Handbook\29-NextJS-Project-Standards.md"
 "D:\wamp\www\AI_Build\Frontend-Engineering-Handbook\30-Laravel-Project-Standards.md"
+"D:\wamp\www\AI_Build\Frontend-Engineering-Handbook\31-Global-Build-Rules.md"
 "D:\wamp\www\AI_Build\Frontend-Engineering-Handbook\CHANGELOG.md"
 "D:\wamp\www\AI_Build\Frontend-Engineering-Handbook\README.md"
 

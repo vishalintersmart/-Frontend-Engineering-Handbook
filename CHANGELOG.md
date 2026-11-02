@@ -4,6 +4,12 @@
 
 This chapter will be fully populated from the original engineering standard while preserving all explicit rules, checklists, examples, and code samples.
 
+## 2026-11-02
+
+- **31-Global-Build-Rules.md** (new) - 13 global build rules: automated overlap detector in QA, flipped Figma images, laptop-fit up to 1200px, scroll animations, dropdown menu, video + image hero slider, sticky header on scroll-up only, statistics counters, favicon check, button / link hover, Figma image crops, `app.min.css` / `pages.min.css` output and keyframe animation on small curved objects (last two HTML / Laravel only).
+- **16-Header-Standards.md** - sticky header now shows only when scrolling up (`is-hidden` / `is-stuck`, rAF-batched scroll listener) instead of the IntersectionObserver version.
+- **FRONTEND-QA-TEST.md** - overlap detector now mandatory at every ~40px width and covers buttons.
+
 ## 2026-10-31
 
 - **09-Responsive-System.md** — added the mandatory *Figma Fidelity Floor (1280px)* rule: the implementation must be visually identical to Figma from the frame's own width down to 1280px, platform-agnostically (HTML, Laravel, Next.js, or any other stack), achieved via a single proportional design-scale CSS custom property (plain CSS, not a framework feature) rather than the discrete breakpoint table. Layout reorganization/reflow is reserved for below 1280px. Mandatory Rules, Responsive Layout Principles and the Validation Checklist updated; cross-referenced from **20-Figma-Validation.md**, **29-NextJS-Project-Standards.md** (Rule 12), and **30-Laravel-Project-Standards.md**.
