@@ -186,6 +186,8 @@ Implement it once in `globals.css` with a single custom property `--u` (= one Fi
 - Above 1920px the design does **not** keep growing — it holds at the Figma size.
 - The tier ratios (0.6 / 0.72 / 0.85) are the defaults; use others only if the design requires, and record them in the project's docs.
 - The `container` is **not** scaled with the tier — keep Tailwind's default `container mx-auto px-4`. On xl/lg the content therefore sits closer to the screen edge than in Figma; this is expected.
+- **Never add any other class to the `container` element.** It is exactly `className="container mx-auto px-4"` and nothing else. Put spacing, flex/grid, positioning, etc. on a child wrapper (or the parent section), not on the container.
+- **Positioned elements (`relative`/`absolute`/`fixed`/`sticky`) get an explicit `z-*` utility** (`z-0`, `z-10`, `z-20`…) whenever stacking matters — overlays, decorative backgrounds, badges, sticky headers, slider arrows. Use a small consistent scale; no arbitrary huge values.
 
 Verify at 1920×1080, ~1600×1000, ~1300×800 and ~1100×800: measure `--u` (1, 0.85, 0.72, 0.6), check every section for clipping and horizontal overflow (only carousels/marquees may exceed the viewport).
 
@@ -320,6 +322,7 @@ export default function CuratedProducts({ data }) {
 ```
 
 - Slider/carousel → extract the **slider** (e.g. the Embla card slider), not the whole section.
+- **Sliders: Embla only.** No custom-built sliders and no other slider library. Use `embla-carousel-react` customized to the approved design (options, plugins, prev/next/dots wired to the Embla API), following the official Embla documentation approach (`useEmblaCarousel` hook, `viewport` ref → `container` → `slide` structure, plugins such as Autoplay/ClassNames from the Embla docs). Do not manually set `overflow` beyond what Embla's documented viewport structure requires.
 - Read-more toggle, tabs, filters, expanding gallery, form → extract just that widget.
 - Server-rendered content that must sit *inside* the client widget (e.g. a hero `<h1>` over a slideshow) is passed as `children` — it stays server HTML.
 - If a whole "section" is genuinely all state (a filterable product grid), move it out of `sections/` into the shared components folder as a client component and render it from the server section/page — don't mark the section file itself.
