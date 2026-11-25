@@ -1,0 +1,224 @@
+{
+  ".claude/settings.local.json": {
+    "mtime": 1786618823.848003,
+    "seen": 1793616728.558452,
+    "ast_hash": "4ffed8c4a8259e3ad6cba6d89f72fd2e",
+    "semantic_hash": "4ffed8c4a8259e3ad6cba6d89f72fd2e"
+  },
+  "assets/smoothscroll.js": {
+    "mtime": 1793445620.6267684,
+    "seen": 1793616728.5584579,
+    "ast_hash": "75445cf259bf31a662d7e7b8e63d9ca8",
+    "semantic_hash": "75445cf259bf31a662d7e7b8e63d9ca8"
+  },
+  "01-Introduction.md": {
+    "mtime": 1786430543.5484667,
+    "seen": 1793616728.5584607,
+    "ast_hash": "e8de0e205b2c1e1ef8b0ae40ef610b90",
+    "semantic_hash": "e8de0e205b2c1e1ef8b0ae40ef610b90"
+  },
+  "02-Core-Workflow.md": {
+    "mtime": 1786430910.686242,
+    "seen": 1793616728.5584621,
+    "ast_hash": "43c6452abfdd1244398a5a325ed391ec",
+    "semantic_hash": "43c6452abfdd1244398a5a325ed391ec"
+  },
+  "03-Figma-Standards.md": {
+    "mtime": 1786431366.2723794,
+    "seen": 1793616728.5584638,
+    "ast_hash": "eceeb09900c5650afe3bed6c4c75bc7e",
+    "semantic_hash": "eceeb09900c5650afe3bed6c4c75bc7e"
+  },
+  "04-Project-Architecture.md": {
+    "mtime": 1786431497.8455374,
+    "seen": 1793616728.558465,
+    "ast_hash": "a2dfc67750a7753d73ade0047ac5e2b7",
+    "semantic_hash": "a2dfc67750a7753d73ade0047ac5e2b7"
+  },
+  "05-PHP-Architecture.md": {
+    "mtime": 1786431589.43877,
+    "seen": 1793616728.5584667,
+    "ast_hash": "394e902d058ffea414d1e09c4b41a471",
+    "semantic_hash": "394e902d058ffea414d1e09c4b41a471"
+  },
+  "06-HTML-Standards.md": {
+    "mtime": 1786431822.7224057,
+    "seen": 1793616728.558468,
+    "ast_hash": "1438b0f021efe99c7f4efe8d4872e392",
+    "semantic_hash": "1438b0f021efe99c7f4efe8d4872e392"
+  },
+  "07-CSS-Standards.md": {
+    "mtime": 1786431847.3870153,
+    "seen": 1793616728.558469,
+    "ast_hash": "8e9e2055f120a8bdcfe5ccef9b3ee6f7",
+    "semantic_hash": "8e9e2055f120a8bdcfe5ccef9b3ee6f7"
+  },
+  "08-SASS-Architecture.md": {
+    "mtime": 1786431960.6994934,
+    "seen": 1793616728.5584705,
+    "ast_hash": "cac315d630539bce7b0995bb7ca3a640",
+    "semantic_hash": "cac315d630539bce7b0995bb7ca3a640"
+  },
+  "09-Responsive-System.md": {
+    "mtime": 1793445620.2949545,
+    "seen": 1793616728.5584717,
+    "ast_hash": "7ac7c107a5a6f3265ecca744c7b763dd",
+    "semantic_hash": "7ac7c107a5a6f3265ecca744c7b763dd"
+  },
+  "10-Design-Tokens.md": {
+    "mtime": 1786450923.0419953,
+    "seen": 1793616728.5584736,
+    "ast_hash": "703091a847029797e0c580388c7a8ede",
+    "semantic_hash": "703091a847029797e0c580388c7a8ede"
+  },
+  "11-Components.md": {
+    "mtime": 1786434543.7251656,
+    "seen": 1793616728.5584748,
+    "ast_hash": "fdf4188fb566aa95581b6004dde3d682",
+    "semantic_hash": "fdf4188fb566aa95581b6004dde3d682"
+  },
+  "12-CMS-Development.md": {
+    "mtime": 1786434593.340433,
+    "seen": 1793616728.5584757,
+    "ast_hash": "f821ea7bddc83cdd0c2562db0b00a5c7",
+    "semantic_hash": "f821ea7bddc83cdd0c2562db0b00a5c7"
+  },
+  "13-JavaScript-Standards.md": {
+    "mtime": 1793445620.518365,
+    "seen": 1793616728.5584772,
+    "ast_hash": "48ff8cede50436e71d82e0b1ed1ad2a1",
+    "semantic_hash": "48ff8cede50436e71d82e0b1ed1ad2a1"
+  },
+  "14-Accessibility.md": {
+    "mtime": 1786434658.136617,
+    "seen": 1793616728.558478,
+    "ast_hash": "f14685e04a1e40034908923b9eb98ab6",
+    "semantic_hash": "f14685e04a1e40034908923b9eb98ab6"
+  },
+  "15-Performance.md": {
+    "mtime": 1793445620.5467587,
+    "seen": 1793616728.5584793,
+    "ast_hash": "1f8d22660f6bb884cf8d686fcff651eb",
+    "semantic_hash": "1f8d22660f6bb884cf8d686fcff651eb"
+  },
+  "16-Header-Standards.md": {
+    "mtime": 1793616492.5382364,
+    "seen": 1793616728.5584805,
+    "ast_hash": "236ffc8c2ec3187ad3c03e0bfef728bd",
+    "semantic_hash": "236ffc8c2ec3187ad3c03e0bfef728bd"
+  },
+  "17-Navigation.md": {
+    "mtime": 1786434764.4270623,
+    "seen": 1793616728.558482,
+    "ast_hash": "e0d3133e0a447a2414997f090ab75c00",
+    "semantic_hash": "e0d3133e0a447a2414997f090ab75c00"
+  },
+  "18-Slider-Standards.md": {
+    "mtime": 1786434833.2778766,
+    "seen": 1793616728.5584831,
+    "ast_hash": "077f56973eef005ecb0fa428031bdf73",
+    "semantic_hash": "077f56973eef005ecb0fa428031bdf73"
+  },
+  "19-Browser-QA.md": {
+    "mtime": 1786451219.3558698,
+    "seen": 1793616728.5584843,
+    "ast_hash": "191c0624aad14f8dee3906e158d032ab",
+    "semantic_hash": "191c0624aad14f8dee3906e158d032ab"
+  },
+  "20-Figma-Validation.md": {
+    "mtime": 1793445620.3090367,
+    "seen": 1793616728.5584855,
+    "ast_hash": "d262f16cefd608b20c36b95c42859b9c",
+    "semantic_hash": "d262f16cefd608b20c36b95c42859b9c"
+  },
+  "21-Final-QA.md": {
+    "mtime": 1786434996.9359672,
+    "seen": 1793616728.5584872,
+    "ast_hash": "1e0080d1362427be32e99ea5dd329914",
+    "semantic_hash": "1e0080d1362427be32e99ea5dd329914"
+  },
+  "22-Delivery.md": {
+    "mtime": 1786435051.2339995,
+    "seen": 1793616728.5584886,
+    "ast_hash": "8d60db83c1d27712c5fc83a478037d6d",
+    "semantic_hash": "8d60db83c1d27712c5fc83a478037d6d"
+  },
+  "23-New-Project-Checklist.md": {
+    "mtime": 1793445620.5793583,
+    "seen": 1793616728.5584898,
+    "ast_hash": "460adba14d05228bf7b576b544619e03",
+    "semantic_hash": "460adba14d05228bf7b576b544619e03"
+  },
+  "24-AI-Development-Rules.md": {
+    "mtime": 1786450317.376368,
+    "seen": 1793616728.5584912,
+    "ast_hash": "b2275055c378325dab0800018bdd1129",
+    "semantic_hash": "b2275055c378325dab0800018bdd1129"
+  },
+  "25-Common-Mistakes.md": {
+    "mtime": 1786435210.1843388,
+    "seen": 1793616728.5584924,
+    "ast_hash": "a088ae21676196f9b7649ef73e589459",
+    "semantic_hash": "a088ae21676196f9b7649ef73e589459"
+  },
+  "26-Best-Practices.md": {
+    "mtime": 1786451820.4829967,
+    "seen": 1793616728.5584934,
+    "ast_hash": "e155c52da50b7176bf1b472f980e0370",
+    "semantic_hash": "e155c52da50b7176bf1b472f980e0370"
+  },
+  "27-Reference-Implementations.md": {
+    "mtime": 1786450994.898615,
+    "seen": 1793616728.5584948,
+    "ast_hash": "0d3325df4d262365758f1bd6b3d48647",
+    "semantic_hash": "0d3325df4d262365758f1bd6b3d48647"
+  },
+  "28-Engineering-Decisions.md": {
+    "mtime": 1786451498.4255867,
+    "seen": 1793616728.5584958,
+    "ast_hash": "4e0a0992a0e6d335fb4d85311180604e",
+    "semantic_hash": "4e0a0992a0e6d335fb4d85311180604e"
+  },
+  "29-NextJS-Project-Standards.md": {
+    "mtime": 1793445620.317197,
+    "seen": 1793616728.5584967,
+    "ast_hash": "369135782705b6e0f77e7bf7733ae4f6",
+    "semantic_hash": "369135782705b6e0f77e7bf7733ae4f6"
+  },
+  "30-Laravel-Project-Standards.md": {
+    "mtime": 1793445620.3300328,
+    "seen": 1793616728.5584981,
+    "ast_hash": "0b329a9532e68e82cb587c822b34804f",
+    "semantic_hash": "0b329a9532e68e82cb587c822b34804f"
+  },
+  "31-Global-Build-Rules.md": {
+    "mtime": 1793616441.5330896,
+    "seen": 1793616728.5584993,
+    "ast_hash": "abc43e62c9059d12ff8027ce21f8ebf0",
+    "semantic_hash": "abc43e62c9059d12ff8027ce21f8ebf0"
+  },
+  "CHANGELOG.md": {
+    "mtime": 1793616492.5543022,
+    "seen": 1793616728.5585003,
+    "ast_hash": "1747c46d9cedfd757e253d33fc0c063f",
+    "semantic_hash": "1747c46d9cedfd757e253d33fc0c063f"
+  },
+  "CLAUDE.md": {
+    "mtime": 1793616492.5697944,
+    "seen": 1793616728.5585015,
+    "ast_hash": "87faf8f16c8885c28fb4fc8e5f16d3d3",
+    "semantic_hash": "87faf8f16c8885c28fb4fc8e5f16d3d3"
+  },
+  "FRONTEND-QA-TEST.md": {
+    "mtime": 1793616492.5382364,
+    "seen": 1793616728.5585027,
+    "ast_hash": "9e638ee5f891e6e1763a562a8f1577b8",
+    "semantic_hash": "9e638ee5f891e6e1763a562a8f1577b8"
+  },
+  "README.md": {
+    "mtime": 1793616492.5495307,
+    "seen": 1793616728.5585039,
+    "ast_hash": "4f9affb81ffd276ade15eb5fdae78126",
+    "semantic_hash": "4f9affb81ffd276ade15eb5fdae78126"
+  }
+}
