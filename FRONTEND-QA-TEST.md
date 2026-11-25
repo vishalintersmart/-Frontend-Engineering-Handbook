@@ -613,6 +613,11 @@ Check:
 
 * Text contrast.
 * Control contrast where applicable.
+
+**Contrast rule:** keep the design's colors exactly as approved. Measure the ratio, record every failure in the QA report with selector, colors, ratio and a suggested alternative, and do NOT change the color in code. Contrast failures are design decisions for the designer/client, not QA fixes.
+
+Continue checking:
+
 * Keyboard focus visibility.
 * Text resizing.
 * Content clipping at increased zoom.
@@ -645,7 +650,8 @@ Do not submit real transactions or transmit sensitive data during testing.
 * No keyboard traps.
 * No major keyboard-operability failures.
 * No missing accessible names for essential interactive controls.
-* No serious contrast or semantic issues.
+* No serious semantic issues.
+* All contrast failures flagged in the report (design colors unchanged).
 
 Automated scans do not prove full WCAG compliance. Clearly document the manual checks performed and the limitations of automated testing.
 
@@ -1063,6 +1069,8 @@ After the baseline audit:
 
 Do not change files solely to eliminate a warning if doing so introduces a regression or weakens security.
 
+**Design colors are never changed.** Do not edit any color value (text, background, border, icon, gradient, token or variable) to fix a contrast issue. Flag contrast failures in the report instead (see Section G.3 and Report Section 7).
+
 If a fix cannot be safely implemented, document the reason and provide the recommended change.
 
 ## Phase 7: Regression Testing
@@ -1282,6 +1290,15 @@ Include:
 * Recommended correction.
 * Verification status.
 
+#### Contrast Findings (flag only — never fixed)
+
+Colors come from the approved design. List every contrast failure in a table:
+
+| Route | Element / selector | Foreground | Background | Measured ratio | Required (WCAG AA) | Suggested alternative |
+| ----- | ------------------ | ---------- | ---------- | -------------- | ------------------ | --------------------- |
+
+Mark status as **Flagged — design decision**. Do not change any color in code.
+
 ### 8. Fixes Implemented
 
 List:
@@ -1368,7 +1385,8 @@ The project should be considered QA-ready only when all applicable criteria have
 * [ ] Essential interactions are keyboard accessible.
 * [ ] Interactive elements have appropriate accessible names.
 * [ ] No keyboard traps.
-* [ ] No major contrast or semantic issues remain unresolved.
+* [ ] No major semantic issues remain unresolved.
+* [ ] Every contrast failure is documented in the report (Section 7) with measured ratio and recommended color; design colors are unchanged.
 
 ### Responsive and Visual Quality
 
